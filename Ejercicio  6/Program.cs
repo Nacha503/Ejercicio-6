@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Ejercicio__6
@@ -19,6 +20,7 @@ namespace Ejercicio__6
 
         static void Main(string[] args)
         {
+            //string pattern = @"(<upcase>)([\w\s]+)(<\\upcase>)";
 
             string oracion = "We are living in a <upcase>yellow submarine</upcase>. " +
                 "We don't have <upcase>anything</upcase> else.";
@@ -26,16 +28,34 @@ namespace Ejercicio__6
             //oracion.Substring(15,5) necesita saber desde donde va a comenzar a crear la subcadena y necesita saber
             // cuantos caracters va a contener la subcadena
 
-            
-
             StringBuilder cadenaModificada = new StringBuilder();
 
-            string[] subCadenas = oracion.Split(new string[] { "<upcase>","</upcase>" }, StringSplitOptions.None);
 
-            foreach (string item in subCadenas)
+            string[] subCadenas = oracion.Split(new string[] {" "},StringSplitOptions.None);
+
+            for (int i = 0; i < subCadenas.Length; i++)
             {
-                Console.WriteLine(item);
+                Console.WriteLine($"subCadenas[{i}]={subCadenas[i]}");
+                if (subCadenas[i].Contains("<upcase>") || subCadenas[i].Contains("</upcase>"))
+                {
+                    cadenaModificada.Append(subCadenas[i].ToUpper()+" ");
+                    cadenaModificada.Replace("<UPCASE>", "");
+                    cadenaModificada.Replace("</UPCASE>", "");
+                }
+                else
+                {
+                    cadenaModificada.Append(subCadenas[i] + " ");
+                }
+
             }
+
+            
+
+
+            Console.WriteLine(cadenaModificada.ToString());
+
+
+           
 
 
 
