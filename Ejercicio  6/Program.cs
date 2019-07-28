@@ -20,7 +20,8 @@ namespace Ejercicio__6
 
         static void Main(string[] args)
         {
-            //string pattern = @"(<upcase>)([\w\s]+)(<\\upcase>)";
+            string pattern = @"(<[\w]+>)([\w\s]+)(</[\w]+>)";
+            
 
             string oracion = "We are living in a <upcase>yellow submarine</upcase>. " +
                 "We don't have <upcase>anything</upcase> else.";
@@ -31,14 +32,14 @@ namespace Ejercicio__6
             StringBuilder cadenaModificada = new StringBuilder();
 
 
-            string[] subCadenas = oracion.Split(new string[] {" "},StringSplitOptions.None);
+            string[] subCadenas = oracion.Split(new string[] { " " }, StringSplitOptions.None);
 
             for (int i = 0; i < subCadenas.Length; i++)
             {
                 Console.WriteLine($"subCadenas[{i}]={subCadenas[i]}");
                 if (subCadenas[i].Contains("<upcase>") || subCadenas[i].Contains("</upcase>"))
                 {
-                    cadenaModificada.Append(subCadenas[i].ToUpper()+" ");
+                    cadenaModificada.Append(subCadenas[i].ToUpper() + " ");
                     cadenaModificada.Replace("<UPCASE>", "");
                     cadenaModificada.Replace("</UPCASE>", "");
                 }
@@ -48,14 +49,32 @@ namespace Ejercicio__6
                 }
 
             }
+            Console.WriteLine(cadenaModificada.ToString());
+
+            StringBuilder cadenaModificada2 = new StringBuilder();
+
+            Regex regex = new Regex(pattern);
+            Match match = regex.Match(oracion);
+            while (match.Success)
+            {
+                cadenaModificada2.Append(match.Groups[2].Value.ToUpper()+" ") ;
+                match = match.NextMatch();
+            }
+
+
 
             
 
 
-            Console.WriteLine(cadenaModificada.ToString());
 
 
-           
+
+
+
+            Console.WriteLine(cadenaModificada2.ToString());
+
+
+
 
 
 
