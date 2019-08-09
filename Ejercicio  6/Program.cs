@@ -21,7 +21,7 @@ namespace Ejercicio__6
         static void Main(string[] args)
         {
             string pattern = @"(<[\w]+>)([\w\s]+)(</[\w]+>)";
-            
+
 
             string oracion = "We are living in a <upcase>yellow submarine</upcase>. " +
                 "We don't have <upcase>anything</upcase> else.";
@@ -55,15 +55,15 @@ namespace Ejercicio__6
 
             Regex regex = new Regex(pattern);
             Match match = regex.Match(oracion);
-            while (match.Success)
-            {
-                cadenaModificada2.Append(match.Groups[2].Value.ToUpper()+" ") ;
-                match = match.NextMatch();
-            }
 
+
+            cadenaModificada2.Append(Regex.Replace(oracion, pattern, match.Groups[2].Value.ToUpper())); // reemplazar el grupo por el nuevo grupo 2??????
 
 
             
+
+
+
 
 
 
